@@ -1,12 +1,22 @@
 import React from 'react';
 import ContentHeader from '../../components/ContentHeader';
-
-import { Container } from "./styles";
+import SelectInput from '../../components/SelectInput';
+import { Container } from './styles';
 
 const Dashboard: React.FC = () => {
+    
+    const options = [
+        {value: 'Jackson', label: 'Jackson'},
+        {value: 'Debora', label: 'Debora'},
+        {value: 'Pedro', label: 'Pedro'}
+    ]
+
     return(
         <Container>
-            <ContentHeader/>
+            <ContentHeader title="Dashboard" lineColor="#FFFF">
+                <SelectInput options={options}/>
+            </ContentHeader>
+
         </Container>
     );
 }
