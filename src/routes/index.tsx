@@ -9,4 +9,4 @@ const Routes: React.FC = () => (
    </BrowserRouter>
 );
 
-export default App;
+export default Routes;
