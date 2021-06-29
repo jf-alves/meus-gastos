@@ -7,12 +7,12 @@ interface ISelectInputProps {
         value: string | number;
         label: string | number;
     }[],
-
+    onChange(event: React.ChangeEvent<HTMLSelectElement>): void | undefined;
 }
 
 const SelectInput: React.FC<ISelectInputProps> = ( {options} ) => {
     return(
-        <Container>
+        <Container onChange>
             <select>
                 {  
                     options.map(option => (   
