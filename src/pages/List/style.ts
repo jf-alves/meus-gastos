@@ -12,13 +12,14 @@ export const Filters = styled.div`
   .tag-filter {
     font-size: 18px;
     font-weight: 500;
+
     background: none;
     color: ${(props) => props.theme.colors.white};
 
     margin: 0 10px;
+    opacity: 0.4;
 
     transition: opacity 0.3s;
-    opacity: 0.4;
 
     &:hover {
       opacity: 0.7;
@@ -45,4 +46,4 @@ export const Filters = styled.div`
   }
 `;
 
-export const Content = styled.div``;
+export const Content = styled.main``;

@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-anonymous-default-export
 export default [
   { "description": "Salário",     "amount": "1300.52", "type": "entrada", "frequency": "recorrente", "date": "2021-01-10" }, 
   { "description": "Freela",      "amount": "150.13",  "type": "entrada", "frequency": "eventual",   "date": "2021-01-17" }, 
