@@ -4,6 +4,7 @@ import ContentHeader from "../../components/ContentHeader";
 import SelectInput from "../../components/SelectInput";
 import WalletBox from "../../components/WalletBox";
 import MensageBox from "../../components/MensageBox";
+import PieChart from "../../components/PieChart";
 
 import expenses from "../../repositories/expenses";
 import gains from "../../repositories/gains";
@@ -23,12 +24,6 @@ const Dashboard: React.FC = () => {
   const [yearSelected, setYearSelected] = useState<number>(
     new Date().getFullYear()
   );
-
-  const options = [
-    { value: "Jackson", label: "Jackson" },
-    { value: "Debora", label: "Debora" },
-    { value: "Pedro", label: "Pedro" },
-  ];
 
   const months = useMemo(() => {
     return listOfMonths.map((month, index) => {
@@ -103,7 +98,7 @@ const Dashboard: React.FC = () => {
 
   const totalBalance = useMemo(() =>{
     return totalGains - totalExpenses;
-  },[monthSelected, yearSelected]);
+  },[totalGains, totalExpenses]);
 
   const message = useMemo(() => {
       if(totalBalance < 0){
@@ -114,7 +109,7 @@ const Dashboard: React.FC = () => {
           icon: sadImg
         }
       }
-      else if(totalBalance == 0){
+      else if(totalBalance === 0){
         return{
           title: "Ufa! Foi por pouco!",
           description: "Neste mês você ficou no empate!",
@@ -130,6 +125,31 @@ const Dashboard: React.FC = () => {
         }
       }
   },[totalBalance])
+
+  const relationExpensesVersusGains = useMemo (() => {
+      const total = totalGains + totalExpenses;
+
+      const percentGains = (totalGains / total) * 100;
+      const percentExpenses = (totalExpenses/total) * 100;
+
+      const data =[ 
+      {
+        name: "Entradas",
+        value: totalExpenses,
+        percent: percentGains.toFixed(1),
+        color: "#E44C4E"
+      },
+      {
+        name: "Entradas",
+        value: totalExpenses,
+        percent: percentExpenses.toFixed(1),
+        color: "#F7931B"
+      }
+    ]
+
+    return data;
+
+  },[totalGains, totalExpenses]);
 
   const handleMonthSelected = (month: string) => {
     try {
@@ -194,6 +214,9 @@ const Dashboard: React.FC = () => {
           footerText={message.footerText}
           icon={message.icon}
         />
+        
+        <PieChart/>
+
       </Content>
     </Container>
   );

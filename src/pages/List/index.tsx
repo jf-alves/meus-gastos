@@ -51,7 +51,7 @@ const List: React.FC<IRouteParams> = ({ match }) => {
             lineColor: '#E44C4E',
             data: expenses
         }
-    },[]);
+    },[movimentType]);
     /*const months = [
         {value: 1, label: 'Janeiro'},
     ];
