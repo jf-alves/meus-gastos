@@ -4,7 +4,7 @@ import ContentHeader from "../../components/ContentHeader";
 import SelectInput from "../../components/SelectInput";
 import WalletBox from "../../components/WalletBox";
 import MensageBox from "../../components/MensageBox";
-import PieChart from "../../components/PieChart";
+import PieChartBox from "../../components/PieChartBox";
 
 import expenses from "../../repositories/expenses";
 import gains from "../../repositories/gains";
@@ -136,16 +136,16 @@ const Dashboard: React.FC = () => {
       {
         name: "Entradas",
         value: totalExpenses,
-        percent: percentGains.toFixed(1),
+        percent: Number(percentGains.toFixed(1)),
         color: "#E44C4E"
       },
       {
         name: "Entradas",
         value: totalExpenses,
-        percent: percentExpenses.toFixed(1),
+        percent: Number(percentExpenses.toFixed(1)),
         color: "#F7931B"
       }
-    ]
+    ];
 
     return data;
 
@@ -215,7 +215,7 @@ const Dashboard: React.FC = () => {
           icon={message.icon}
         />
         
-        <PieChart/>
+        <PieChartBox data={relationExpensesVersusGains}/>
 
       </Content>
     </Container>
