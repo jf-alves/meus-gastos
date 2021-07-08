@@ -153,10 +153,10 @@ const Dashboard: React.FC = () => {
   },[totalGains, totalExpenses]);
 
   const historyData = useMemo(() => {
-    return listOfMonths.map((_,month) => {
+    return listOfMonths.map((_, month) => {
       
       let amountEntry = 0;
-      gains.forEach( gain =>{
+      gains.forEach(gain =>{
           const date = new Date(gain.date);
           const gainMonth = date.getMonth();
           const gainYear = date.getFullYear();
@@ -171,7 +171,7 @@ const Dashboard: React.FC = () => {
       });
     
       let amountOutput = 0;
-      gains.forEach( expense => {
+      expenses.forEach(expense => {
           const date = new Date(expense.date);
           const expenseMonth = date.getMonth();
           const expenseYear = date.getFullYear();
@@ -271,6 +271,7 @@ const Dashboard: React.FC = () => {
           lineColorAmountEntry="#F7931B"
           lineColorAmountOutput="#E44C4E"
         />
+        
       </Content>
     </Container>
   );

@@ -1,8 +1,9 @@
 import React from "react";
-import { Container } from "../PieChartBox/styles";
+import { Container, ChartContainer, Header, LegendContainer, Legend } from "./styles";
 import { ResponsiveContainer, LineChart, Line, XAxis, CartesianGrid, Tooltip} from "recharts";
 
-interface IHistoryBox{
+import formatCurrency from "../../utils/formatCurrency";
+interface IHistoryBoxProps{
     data: {
         month: string
         amountEntry: number;
@@ -12,36 +13,52 @@ interface IHistoryBox{
     lineColorAmountOutput: string;
 }
 
-const HistoryBox: React.FC<IHistoryBox> = ({
+const HistoryBox: React.FC<IHistoryBoxProps> = ({
     data, lineColorAmountEntry, lineColorAmountOutput
 }) =>(
     <Container>
-        <h2>Historico de saldo</h2>
-        <ResponsiveContainer>
-            <LineChart data={data} margin={{top: 5, right: 20, left: 20, bottom: 5}}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#cecece"/>
-                <XAxis dataKey="month" stroke="cece"/>
-                < Tooltip/>
-                <Line 
-                    type="monotone" 
-                    dataKey="amountEntry" 
-                    name="Entradas" 
-                    stroke={lineColorAmountEntry}
-                    strokeWidth={5} 
-                    dot={{r: 5}} 
-                    activeDot={{r: 8}} 
-                />
-                <Line 
-                    type="monotone" 
-                    dataKey="amountOutput" 
-                    name="Saidas" 
-                    stroke={lineColorAmountOutput} 
-                    strokeWidth={5} 
-                    dot={{r: 5}} 
-                    activeDot={{r: 8}} 
-                />
-            </LineChart>
-        </ResponsiveContainer>
+        <Header>
+            <h2>Historico de saldo</h2>
+            <LegendContainer>
+                <Legend color={lineColorAmountEntry}>
+                    <div></div>
+                    <span>Saidas</span>
+                </Legend>
+           
+                <Legend color={lineColorAmountOutput}>
+                    <div></div>
+                    <span>Saidas</span>
+                </Legend>
+            </LegendContainer>
+        </Header>
+
+        <ChartContainer>
+            <ResponsiveContainer>
+                <LineChart data={data} margin={{top: 5, right: 20, left: 20, bottom: 5}}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#cecece"/>
+                    <XAxis dataKey="month" stroke="#cecece"/>
+                    <Tooltip formatter={(value: number) => formatCurrency(value)} />
+                    <Line 
+                        type="monotone" 
+                        dataKey="amountEntry" 
+                        name="Entradas" 
+                        stroke={lineColorAmountEntry}
+                        strokeWidth={5} 
+                        dot={{r: 5}} 
+                        activeDot={{r: 8}} 
+                    />
+                    <Line 
+                        type="monotone" 
+                        dataKey="amountOutput" 
+                        name="Saidas" 
+                        stroke={lineColorAmountOutput} 
+                        strokeWidth={5} 
+                        dot={{r: 5}} 
+                        activeDot={{r: 8}} 
+                    />
+                </LineChart>
+            </ResponsiveContainer>
+        </ChartContainer>
     </Container>
 )
 
