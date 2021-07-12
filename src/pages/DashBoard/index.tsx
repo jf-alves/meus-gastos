@@ -6,6 +6,7 @@ import WalletBox from "../../components/WalletBox";
 import MensageBox from "../../components/MensageBox";
 import PieChartBox from "../../components/PieChartBox";
 import HistoryBox from "../../components/HistoryBox";
+import BarChartBox from "../../components/BarChartBox";
 
 import expenses from "../../repositories/expenses";
 import gains from "../../repositories/gains";
@@ -313,6 +314,10 @@ const Dashboard: React.FC = () => {
           lineColorAmountOutput="#E44C4E"
         />
         
+        <BarChartBox 
+            title="Saidas"
+            data={relationExpensevesRecurrentVersusEventual}/>
+
       </Content>
     </Container>
   );
