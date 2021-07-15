@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useCallback} from "react";
 
 import ContentHeader from "../../components/ContentHeader";
 import SelectInput from "../../components/SelectInput";
@@ -111,6 +111,14 @@ const Dashboard: React.FC = () => {
           icon: sadImg
         }
       }
+      else if(totalGains === 0 && totalExpenses === 0){
+        return{
+          title: "Ops!",
+          description: "Neste mes nao a registro!",
+          footerText: "Xi acho que você não fez nenhum registro esse mes",
+          icon: grinningImg 
+        }
+      }
       else if(totalBalance === 0){
         return{
           title: "Ufa! Foi por pouco!",
@@ -118,7 +126,8 @@ const Dashboard: React.FC = () => {
           footerText: "Tente poupar mais!",
           icon: grinningImg 
         }
-      }else {
+      }
+      else {
         return{
           title:"Muito bem!",
           description:"Sua carteira está positiva!",
@@ -126,25 +135,25 @@ const Dashboard: React.FC = () => {
           icon: happyImg
         }
       }
-  },[totalBalance])
+  },[totalBalance, totalGains, totalExpenses])
 
   const relationExpensesVersusGains = useMemo (() => {
       const total = totalGains + totalExpenses;
 
-      const percentGains = (totalGains / total) * 100;
-      const percentExpenses = (totalExpenses/total) * 100;
+      const percentGains = Number(((totalGains / total) * 100).toFixed(1));
+      const percentExpenses = Number(((totalExpenses/total) * 100).toFixed(1));
 
       const data =[ 
       {
         name: "Entradas",
-        value: totalExpenses,
-        percent: Number(percentGains.toFixed(1)),
+        value: totalGains,
+        percent: percentGains ? percentGains : 0,
         color: "#E44C4E"
       },
       {
         name: "Entradas",
         value: totalExpenses,
-        percent: Number(percentExpenses.toFixed(1)),
+        percent: percentExpenses ? percentGains : 0,
         color: "#F7931B"
       }
     ];
@@ -225,18 +234,22 @@ const Dashboard: React.FC = () => {
       });
 
       const total = amountRecurrent + amountEventual;
+
+      const percenteRecurrent = Number(((amountRecurrent / total) * 100).toFixed(1));
+      const percentEventual = Number(((amountEventual / total) * 100).toFixed(1));
+
       
       return [
         {
           name: 'Recorrentes',
           amount: amountRecurrent,
-          percent: Number(((amountEventual / total) * 100).toFixed(1)),
+          percent: percenteRecurrent ? percenteRecurrent : 0,
           color: "#F7931B"
         },
         {
           name: 'Eventuais',
           amount: amountRecurrent,
-          percent: Number(((amountEventual / total) * 100).toFixed(1)),
+          percent: percentEventual ? percentEventual : 0,
           color: "#E44C4E"
         }
       ];
@@ -266,41 +279,44 @@ const Dashboard: React.FC = () => {
     });
 
     const total = amountRecurrent + amountEventual;
-    
+
+    const percentRecurrent = Number(((amountRecurrent / total) * 100).toFixed(1));
+    const percentEventual = Number(((amountEventual / total) * 100).toFixed(1));
+
     return [
       {
         name: 'Recorrentes',
         amount: amountRecurrent,
-        percent: Number(((amountEventual / total) * 100).toFixed(1)),
+        percent: percentRecurrent ? percentRecurrent: 0,
         color: "#F7931B"
       },
       {
         name: 'Eventuais',
         amount: amountRecurrent,
-        percent: Number(((amountEventual / total) * 100).toFixed(1)),
+        percent: percentEventual ? percentEventual: 0,
         color: "#E44C4E"
       }
     ];
 
 },[monthSelected, yearSelected])
 
-  const handleMonthSelected = (month: string) => {
+  const handleMonthSelected = useCallback((month: string) => {
     try {
       const parseMonth = Number(month);
       setMonthSelected(parseMonth);
     } catch{
       throw new Error("invalid month value. Is accept 0 - 24.");
     }
-  };
+  },[]);
 
-  const handleYearSelected = (year: string) => {
+  const handleYearSelected = useCallback((year: string) => {
     try {
       const parseYear = Number(year);
       setYearSelected(parseYear);
     } catch{
       throw new Error("inavlid year value. Is accept integer numbers.");
     }
-  };
+  },[]);
 
   return (
     <Container>
