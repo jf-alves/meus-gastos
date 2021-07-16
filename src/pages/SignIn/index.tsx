@@ -9,8 +9,8 @@ import { useAuth } from '../../hooks/auth';
 import { Container, Logo, Form, FormTitle } from './styles';
 
 const SignIn: React.FC = () => {
-    const [ email, setEmail ] = useState<String>('');
-    const [ password, setPassword ] = useState<String>('');
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
 
     const { signIn } = useAuth();
     return(
@@ -24,7 +24,7 @@ const SignIn: React.FC = () => {
                 <FormTitle>Entrar</FormTitle>
                 
                 <Input
-                    type="email"
+                    type='email'
                     placeholder="email" 
                     required
                     onChange={(e) => setEmail(e.target.value)}
